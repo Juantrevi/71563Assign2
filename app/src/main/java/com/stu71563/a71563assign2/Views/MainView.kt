@@ -1,9 +1,14 @@
 // MainView.kt
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -21,14 +26,14 @@ import com.stu71563.a71563assign2.movieList
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainView(navController: NavController) { // Change Screen1 to MainView
+fun MainView(navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(colors = topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 titleContentColor = MaterialTheme.colorScheme.primary,
             ), title = {
-                Text("Main View") // Change Screen 1 to Main View
+                Text("Main View")
             })
         },
         bottomBar = {
@@ -39,15 +44,30 @@ fun MainView(navController: NavController) { // Change Screen1 to MainView
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
-                    text = "Main View bottom app bar", // Change Screen 1 to Main View
+                    text = "Main View bottom app bar",
                 )
             }
-        },
+        }
     ) {
-        LazyColumn(modifier = Modifier.fillMaxWidth(), contentPadding = PaddingValues(16.dp)) {
-            items(movieList) { movie -> // Use items(movieList) instead of MovieCard
-                MovieCard(movie = movie) // Pass the Movie object to MovieCard
+        BoxWithConstraints(modifier = Modifier.fillMaxSize()) { // Apply padding here
+            val cardWidth = maxWidth / 2
+            val cardHeight = maxHeight / 2
+
+            LazyColumn(contentPadding = PaddingValues(16.dp)) {
+                itemsIndexed(movieList.chunked(2)) { _, rowMovies ->
+                    Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+                        for (movie in rowMovies) {
+                            MovieCard(
+                                movie = movie,
+                                modifier = Modifier.size(width = cardWidth, height = cardHeight)
+                            )
+                        }
+                    }
+                }
             }
         }
     }
 }
+
+
+

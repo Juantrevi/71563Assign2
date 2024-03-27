@@ -9,14 +9,15 @@ import androidx.compose.ui.res.painterResource
 import com.stu71563.a71563assign2.Movie
 
 @Composable
-fun MovieCard(movie: Movie) {
-    Card {
-        Image(
+fun MovieCard(movie: Movie, modifier: Modifier = Modifier) {
+    Card (modifier = modifier)
+    {
+/*        Image(
             painter = painterResource(id = movie.image),
             contentDescription = movie.name,
             modifier = Modifier.aspectRatio(1f),
             contentScale = ContentScale.Crop
-        )
+        )*/
         Text(text = movie.name)
     }
 }
