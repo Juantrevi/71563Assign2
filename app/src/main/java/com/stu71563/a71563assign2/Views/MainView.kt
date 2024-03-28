@@ -1,8 +1,10 @@
 // MainView.kt
 import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -17,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -44,30 +47,32 @@ fun MainView(navController: NavController) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
-                    text = "Main View bottom app bar",
+                    text = "Main View bottom app bar content",
                 )
             }
         }
     ) {
-        BoxWithConstraints(modifier = Modifier.fillMaxSize()) { // Apply padding here
-            val cardWidth = maxWidth / 2
-            val cardHeight = maxHeight / 2
-
-            LazyColumn(contentPadding = PaddingValues(16.dp)) {
-                itemsIndexed(movieList.chunked(2)) { _, rowMovies ->
-                    Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
-                        for (movie in rowMovies) {
-                            MovieCard(
-                                movie = movie,
-                                modifier = Modifier.size(width = cardWidth, height = cardHeight)
-                            )
-                        }
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(top = 120.dp)
+        ) {
+            itemsIndexed(movieList.chunked(2)) { _, rowMovies ->
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    for (movie in rowMovies) {
+                        MovieCard(
+                            movie = movie,
+                            modifier = Modifier
+                                .size(width = 180.dp, height = 200.dp)
+                                .padding(10.dp)
+                        )
                     }
                 }
             }
         }
     }
 }
-
 
 
