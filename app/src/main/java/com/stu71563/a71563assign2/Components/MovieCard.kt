@@ -1,29 +1,31 @@
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
-
 import com.stu71563.a71563assign2.Movie
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MovieCard(movie: Movie, modifier: Modifier = Modifier) {
-    Card (modifier = modifier)
+fun MovieCard(movie: Movie, navController: NavController, modifier: Modifier = Modifier) {
+    Card (
+        modifier = modifier,
 
-    {
+        onClick = { navController.navigate("movieDetails/${movie.name}") }) {
         Image(
             painter = rememberAsyncImagePainter(model = movie.image),
             contentDescription = movie.name,
-            modifier = Modifier.aspectRatio(1f),
+            modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
-        Text(text = movie.name)
     }
 }

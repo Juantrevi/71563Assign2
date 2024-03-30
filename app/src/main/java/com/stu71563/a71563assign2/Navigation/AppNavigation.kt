@@ -5,6 +5,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.stu71563.a71563assign2.Views.MovieDetails
+
 
 @Composable
 fun AppNavigation() {
@@ -12,12 +14,15 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Routes.MainView.route,
+        startDestination = Routes.MainView,
     ) {
-        composable(route = Routes.MainView.route)
+        composable(route = Routes.MainView)
         {
             MainView(navController = navController)
         }
-        // Add other screens here when they're ready
+        composable(route = Routes.MovieDetails) { backStackEntry ->
+            val movieId = backStackEntry.arguments?.getString("movieId")
+            MovieDetails(movieName = movieId, navController = navController)
+        }
     }
 }

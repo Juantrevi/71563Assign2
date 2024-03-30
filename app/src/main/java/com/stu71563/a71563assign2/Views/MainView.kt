@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.stu71563.a71563assign2.movieList
 
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,7 +40,7 @@ fun MainView(navController: NavController) {
                 Text("Main View")
             })
         },
-        bottomBar = {
+/*        bottomBar = {
             BottomAppBar(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.primary,
@@ -47,14 +48,14 @@ fun MainView(navController: NavController) {
                 Text(
                     modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
-                    text = "Main View bottom app bar content",
+                    text = "Main View bottom app bar",
                 )
             }
-        }
+        }*/
     ) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(top = 120.dp)
+            contentPadding = PaddingValues(top = 100.dp)
         ) {
             itemsIndexed(movieList.chunked(2)) { _, rowMovies ->
                 Row(
@@ -64,8 +65,9 @@ fun MainView(navController: NavController) {
                     for (movie in rowMovies) {
                         MovieCard(
                             movie = movie,
+                            navController = navController,
                             modifier = Modifier
-                                .size(width = 180.dp, height = 200.dp)
+                                .size(width = 180.dp, height = 250.dp)
                                 .padding(10.dp)
                         )
                     }
