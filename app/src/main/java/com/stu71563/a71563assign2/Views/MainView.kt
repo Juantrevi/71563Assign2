@@ -1,5 +1,6 @@
 // MainView.kt
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,6 +22,7 @@ import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -54,8 +56,10 @@ fun MainView(navController: NavController) {
         }*/
     ) {
         LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(top = 100.dp)
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(android.graphics.Color.parseColor("#191919"))),
+            contentPadding = PaddingValues(top = 100.dp),
         ) {
             itemsIndexed(movieList.chunked(2)) { _, rowMovies ->
                 Row(

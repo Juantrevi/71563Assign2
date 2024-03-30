@@ -2,11 +2,13 @@ package com.stu71563.a71563assign2.Views
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -94,7 +96,14 @@ fun MovieDetails(movieName: String?, navController: NavController) {
             }
         }
     ) {
-        LazyColumn(contentPadding = PaddingValues(top = 60.dp)) {
+        LazyColumn(
+            contentPadding = PaddingValues(top = 60.dp),
+            modifier = Modifier
+                .fillMaxSize()
+            .background(Color(android.graphics.Color.parseColor("#191919"))),
+
+
+        ) {
             item {
                 Image(
                     painter = rememberAsyncImagePainter(model = movie?.image),
@@ -116,7 +125,8 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                         text = "Description: ${movie?.description ?: ""}",
                         fontSize = 16.sp,
                         maxLines = 2,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        color = Color.White
                     )
                     Row {
                         Text(
@@ -125,13 +135,15 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                             }",
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Light,
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            color = Color.Gray
                         )
                         Text(
                             text = "Run time: ${movie?.runningTimeMins ?: ""} minutes",
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Light,
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f),
+                            color = Color.Gray
                         )
                     }
                 }
