@@ -5,17 +5,24 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowDownward
+import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.EventSeat
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.BottomAppBar
@@ -72,25 +79,30 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                     text = "Seats Available: ${movie?.seatsRemaining?.value}",
                     modifier = Modifier.padding(start = 16.dp)
                 )
+
+                val iconColor = if (movie?.seatsRemaining?.value!! > 3) Color.Green else Color.Red
+                Icon(Icons.Filled.EventSeat, contentDescription = "Seat Available", tint = iconColor)
+
                 Text(
                     text = "Seats Selected: ${movie?.seatsSelected?.value}",
                     modifier = Modifier.padding(start = 16.dp)
                 )
-                IconButton(onClick = {
-                    if (movie?.seatsRemaining?.value!! > 0) {
-                        movie.seatsSelected.value++
-                        movie.seatsRemaining.value--
-                    }
-                }) {
-                    Icon(Icons.Default.KeyboardArrowUp, contentDescription = "Add Seat")
-                }
+
                 IconButton(onClick = {
                     if (movie?.seatsSelected?.value!! > 0) {
                         movie.seatsSelected.value--
                         movie.seatsRemaining.value++
                     }
                 }) {
-                    Icon(Icons.Default.KeyboardArrowDown, contentDescription = "Remove Seat")
+                    Icon(Icons.Filled.ArrowDownward, contentDescription = "Remove Seat")
+                }
+                IconButton(onClick = {
+                    if (movie?.seatsRemaining?.value!! > 0) {
+                        movie.seatsSelected.value++
+                        movie.seatsRemaining.value--
+                    }
+                }) {
+                    Icon(Icons.Filled.ArrowUpward, contentDescription = "Add Seat")
                 }
             }
             }
@@ -100,7 +112,7 @@ fun MovieDetails(movieName: String?, navController: NavController) {
             contentPadding = PaddingValues(top = 60.dp),
             modifier = Modifier
                 .fillMaxSize()
-            .background(Color(android.graphics.Color.parseColor("#191919"))),
+                .background(Color(android.graphics.Color.parseColor("#000000"))),
 
 
         ) {
@@ -115,37 +127,70 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                     contentScale = ContentScale.FillBounds
                 )
                 Column(modifier = Modifier.padding(16.dp)) {
-                    Text(
-                        text = "Certification: ${movie?.certification ?: ""}",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Blue
-                    )
-                    Text(
-                        text = "Description: ${movie?.description ?: ""}",
-                        fontSize = 16.sp,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        color = Color.White
-                    )
-                    Row {
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
-                            text = "Starring: ${
-                                movie?.starring?.joinToString(separator = ", ") ?: ""
-                            }",
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Light,
-                            modifier = Modifier.weight(1f),
-                            color = Color.Gray
+                            text = "${movie?.name }",
+                            fontSize = 26.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color(android.graphics.Color.parseColor("#D3D3D3"))
                         )
-                        Text(
-                            text = "Run time: ${movie?.runningTimeMins ?: ""} minutes",
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Light,
-                            modifier = Modifier.weight(1f),
-                            color = Color.Gray
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Image(
+                            painter = rememberAsyncImagePainter(model = movie?.certification),
+                            contentDescription = movie?.certification,
+                            modifier = Modifier.size(26.dp),
+                            contentScale = ContentScale.FillBounds
                         )
                     }
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Row {
+
+                        Text(
+                            text = "Starring ",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(android.graphics.Color.parseColor("#D3D3D3"))
+                        )
+                        Text(
+                            text = "Starring: ${movie?.starring?.joinToString()}",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color(android.graphics.Color.parseColor("#6E6E6E"))
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    Row {
+
+                        Text(
+                            text = "Running Time ",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(android.graphics.Color.parseColor("#D3D3D3"))
+                        )
+                        Text(
+                            text = "${movie?.runningTimeMins} mins",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color(android.graphics.Color.parseColor("#6E6E6E"))
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Text(
+                        text = "${movie?.description}",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        maxLines = 10,
+                        overflow = TextOverflow.Ellipsis
+                    )
+
+
+
+
                 }
             }
         }

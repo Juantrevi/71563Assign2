@@ -37,23 +37,11 @@ fun MainView(navController: NavController) {
         topBar = {
             TopAppBar(colors = topAppBarColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
-                titleContentColor = MaterialTheme.colorScheme.primary,
+                titleContentColor = MaterialTheme.colorScheme.inversePrimary,
             ), title = {
                 Text("Main View")
             })
         },
-/*        bottomBar = {
-            BottomAppBar(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary,
-            ) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    text = "Main View bottom app bar",
-                )
-            }
-        }*/
     ) {
         LazyColumn(
             modifier = Modifier
