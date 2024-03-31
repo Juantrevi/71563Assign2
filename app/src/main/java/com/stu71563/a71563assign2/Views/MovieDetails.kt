@@ -76,12 +76,19 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Seats Available: ${movie?.seatsRemaining?.value}",
-                    modifier = Modifier.padding(start = 16.dp)
+                    text = if (movie?.seatsRemaining?.value == 0) "No seats available" else "Seats Available: ${movie?.seatsRemaining?.value}",
+                    modifier = Modifier
+                        .padding(start = 16.dp)
                 )
 
                 val iconColor = if (movie?.seatsRemaining?.value!! > 3) Color.Green else Color.Red
-                Icon(Icons.Filled.EventSeat, contentDescription = "Seat Available", tint = iconColor)
+                if (movie?.seatsRemaining?.value != 0) {
+                    Icon(Icons.Filled.EventSeat,
+                        modifier = Modifier
+                                    .padding(start = 8.dp),
+                        contentDescription = "Seat Available",
+                        tint = iconColor)
+                }
 
                 Text(
                     text = "Seats Selected: ${movie?.seatsSelected?.value}",
@@ -185,14 +192,16 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                         fontWeight = FontWeight.Normal,
                         color = Color.White,
                         maxLines = 10,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.padding(bottom = 100.dp) // Add this line
+
                     )
-
-
-
 
                 }
             }
         }
     }
 }
+
+
+
