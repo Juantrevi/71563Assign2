@@ -23,9 +23,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.stu71563.a71563assign2.R
 import com.stu71563.a71563assign2.movieList
 
 
@@ -35,18 +39,24 @@ import com.stu71563.a71563assign2.movieList
 fun MainView(navController: NavController) {
     Scaffold(
         topBar = {
-            TopAppBar(colors = topAppBarColors(
-                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                titleContentColor = MaterialTheme.colorScheme.inversePrimary,
-            ), title = {
-                Text("Main View")
+            TopAppBar(
+                colors = topAppBarColors(
+                containerColor = Color(android.graphics.Color.parseColor("#24243C")),
+                titleContentColor = Color(android.graphics.Color.parseColor("#EBECEC"))),
+                title = {
+                    Text(
+                        text = "Treviranus Cinema",
+                        fontFamily = FontFamily(Font(resId = R.font.roboto_condensed_regular)),
+                        fontWeight = androidx.compose.ui.text.font.FontWeight.ExtraBold,
+                        letterSpacing = 2.sp
+                    )
             })
         },
     ) {
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(android.graphics.Color.parseColor("#191919"))),
+                .background(Color(android.graphics.Color.parseColor("#383958"))),
             contentPadding = PaddingValues(top = 100.dp),
         ) {
             itemsIndexed(movieList.chunked(2)) { _, rowMovies ->
