@@ -96,7 +96,7 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                     val seatsColor =
                         if (movie?.seatsRemaining?.value!! <= 3) Color.Red else Color.White
                     Text(
-                        text = if (movie?.seatsRemaining?.value == 0) "No seats available" else "Seats Available: ${movie?.seatsRemaining?.value}",
+                        text = if (movie.seatsRemaining.value == 0) "No seats available" else "Seats Available: ${movie.seatsRemaining.value}",
                         color = seatsColor,
                         fontSize = 18.sp,
                         fontFamily = FontFamily(Font(resId = R.font.roboto_condensed_regular)),
@@ -111,7 +111,7 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                     )
 
                     IconButton(onClick = {
-                        if (movie?.seatsSelected?.value!! > 0) {
+                        if (movie.seatsSelected?.value!! > 0) {
                             movie.seatsSelected.value--
                             movie.seatsRemaining.value++
                         }
@@ -131,7 +131,7 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                     }
 
                     Text(
-                        text = "${movie?.seatsSelected?.value}",
+                        text = "${movie.seatsSelected?.value}",
                         fontSize = 18.sp,
                         fontFamily = FontFamily(Font(resId = R.font.roboto_condensed_regular)),
                         modifier = Modifier.padding(horizontal = 16.dp) // Add horizontal padding
@@ -139,7 +139,7 @@ fun MovieDetails(movieName: String?, navController: NavController) {
 
 
                     IconButton(onClick = {
-                        if (movie?.seatsRemaining?.value!! > 0) {
+                        if (movie.seatsRemaining?.value!! > 0) {
                             movie.seatsSelected.value++
                             movie.seatsRemaining.value--
                         }
@@ -209,7 +209,7 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                                     tint = Color.Red,
                                 )
                                 Text(
-                                    text = "Filling Fast!",
+                                    text = "Filling Fast! Only ${movie.seatsRemaining.value} seats remaining!",
                                     fontFamily = FontFamily(Font(resId = R.font.roboto_condensed_regular)),
                                     color = Color.Red,
                                     fontWeight = FontWeight.Bold,
@@ -218,7 +218,7 @@ fun MovieDetails(movieName: String?, navController: NavController) {
                             }
                         }
 
-                        movie?.seatsRemaining?.value!! == 0 -> {
+                        movie.seatsRemaining.value!! == 0 -> {
                             Row {
                                 Icon(
                                     Icons.Filled.Cancel,
